@@ -17,7 +17,7 @@
   <p>[ <a href="../{{table}}.svg">graph</a> ]</p>
     <pre class="iptables">
 {% for rule in rules -%}
-{% if rule.target is upper -%}
+{% if rule.target in builtin_targets -%}
 -A {{rule.chain}} {{rule.conditions}} -j <span class="builtin">{{ rule.target }}</span> {{ rule.extra }}
 {% else -%}
 -A {{rule.chain}} {{rule.conditions}} -j <a href="{{rule.target}}.html">{{ rule.target }}</a> {{ rule.extra }}

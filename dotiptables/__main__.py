@@ -20,6 +20,51 @@ BUILTIN_CHAINS = [
     'PREROUTING',
 ]
 
+BUILTIN_TARGETS = [
+    'ACCEPT',
+    'RETURN',
+    'DROP',
+    'AUDIT',
+    'CHECKSUM',
+    'CLASSFY',
+    'CLUSTERIP',
+    'CONNMARK',
+    'CONNSECMARK',
+    'CT',
+    'DNAT',
+    'DNPT',
+    'DSCP',
+    'ECN',
+    'HL',
+    'HMARK',
+    'IDLETIMER',
+    'LED',
+    'LOG',
+    'MARK',
+    'MASQUERADE',
+    'NETMAP',
+    'NFLOG',
+    'NFQUEUE',
+    'NOTRACK',
+    'RATEEST',
+    'REDIRECT',
+    'REJECT',
+    'SECMARK',
+    'SET',
+    'SNAT',
+    'SNPT',
+    'SYNPROXY',
+    'TCPMSS',
+    'TCPOPTSTRIP',
+    'TEE',
+    'TOS',
+    'TPROXY',
+    'TRACE',
+    'TTL',
+    'ULOG',
+]
+
+
 env = jinja2.Environment(
         loader=PackageLoader('dotiptables', 'templates'))
 
@@ -126,6 +171,7 @@ def output_rules(iptables, opts):
                 fd.write(tmpl.render(
                     table=table,
                     chain=chain,
+                    builtin_targets=BUILTIN_TARGETS,
                     rules=data['rules'],
                     policy=data['policy']))
 

@@ -10,8 +10,12 @@
 digraph table_{{table}} {
   rankdir=LR;
 
-{% for chain in chains %}
-  "{{chain}}" [URL="{{table}}/{{chain}}.html"]{% endfor %}
+{% for chain, data in chains.items() %}
+  "{{chain}}" [
+        URL="{{table}}/{{chain}}.html",
+        label="{{chain}}\n{{data.rules|count}} rules",
+        tooltip="{{data.lines|join("\n")|replace('"', '\\"')}}"
+  ]{% endfor %}
 
 {% for chain, data in chains.items() -%}
 {% for target in data.targets %}

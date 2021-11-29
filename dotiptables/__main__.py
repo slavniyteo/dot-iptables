@@ -84,7 +84,7 @@ re_comment = re.compile(re_comment)
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument('--outputdir', '-d', default='./out')
-    p.add_argument('--render', action='store_true')
+    p.add_argument('--render', action='store_true', default="True")
     p.add_argument('input', nargs='?')
 
     return p.parse_args()
@@ -106,6 +106,7 @@ def handle_chain(iptables, mo, line):
         policy = None
 
     iptables['_table'][mo.group('chain')] = {
+        'lines': [],
         'policy': policy,
         'rules': [],
         'targets': set(),
@@ -115,6 +116,7 @@ def handle_chain(iptables, mo, line):
 def handle_rule(iptables, mo, line):
     fields = dict((k, v if v else '') for k, v in mo.groupdict().items())
     iptables['_table'][fields['chain']]['rules'].append(fields)
+    iptables['_table'][fields['chain']]['lines'].append(line)
 
     if mo.group('target') and mo.group('target') in iptables['_table']:
         iptables['_table'][fields['chain']]['targets'].add(mo.group('target'))

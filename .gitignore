@@ -8,6 +8,7 @@ build
 dist
 .eggs
 monkeytype.sqlite3
+.idea
 
 # produced files
 *.dot
